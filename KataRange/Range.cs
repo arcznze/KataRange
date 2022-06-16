@@ -37,7 +37,57 @@ namespace KataRange
 
         string GetAllPoint(string x)
         {
-
+            Range text = new Range(x);
+            if (FirstChar(x) == "[")
+            {
+                if (SecondChar(x) == "]")
+                {
+                    int t = int.Parse(FirstNumber(x)) + 1;
+                    int y = int.Parse(SecondNumber(x));
+                    for (int i = 0; i < y; i++)
+                    {
+                        t += i;
+                        return t.ToString();
+                    }
+                }
+                else if (SecondChar(x) == ")")
+                {
+                    int t = int.Parse(FirstNumber(x)) + 1;
+                    int y = int.Parse(SecondNumber(x) + 1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        t += i;
+                        return t.ToString();
+                    }
+                }
+                return "";
+            }
+            else if (FirstChar(x) == "(")
+            {
+                if (SecondChar(x) == "]")
+                {
+                    int t = int.Parse(FirstNumber(x));
+                    int y = int.Parse(SecondNumber(x));
+                    for (int i = 0; i < y; i++)
+                    {
+                        t += i;
+                        return t.ToString();
+                    }
+                }
+                else if (SecondChar(x) == ")")
+                {
+                    int t = int.Parse(FirstNumber(x));
+                    int y = int.Parse(SecondNumber(x) + 1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        t += i;
+                        return t.ToString();
+                    }
+                }
+                return "";
+            }
+            else
+                throw new Exception();
         }
     }
 }
