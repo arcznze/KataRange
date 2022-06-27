@@ -35,38 +35,49 @@ namespace KataRange
 
         }
 
-        string GetAllPoint(string x)
+        public string GetAllPoint(string x)
         {
             Range text = new Range(x);
-            if (FirstChar(x) == "[")
+
+            int t = x.Length - 1;
+            string a = x.Substring(0, 1);
+            string b = x.Substring(t, 1);
+            Char[] delimiters = { '[', '(', ',', ']', ')' };
+            string[] divide = x.Split(delimiters);
+            List<string> numbers = new List<string>();
+            int d = int.Parse(divide[1]);
+            int e = int.Parse(divide[2]);
+
+            if (a == "[")
             {
-                if (SecondChar(x) == "]")
+                if (b == "]")
                 {
-                    int t = int.Parse(FirstNumber(x)) + 1;
-                    int y = int.Parse(SecondNumber(x));
-                    for (int i = 0; i < y; i++)
+                    for (int i = d; i < e; i++)
                     {
-                        t += i;
-                        return t.ToString();
+                        numbers.Add(i.ToString());
                     }
+                    string joined = String.Join(", ", numbers.ToArray());
+                    return joined;
                 }
-                else if (SecondChar(x) == ")")
+                else if (b == ")")
                 {
-                    int t = int.Parse(FirstNumber(x)) + 1;
-                    int y = int.Parse(SecondNumber(x) + 1);
-                    for (int i = 0; i < y; i++)
+                    e -= 1;
+                    for (int i = d; i < e; i++)
                     {
-                        t += i;
-                        return t.ToString();
+                        numbers.Add(i.ToString());
                     }
+                    string joined = String.Join(", ", numbers.ToArray());
+                    return joined;
                 }
-                return "";
+                else
+                    throw new NotImplementedException();
             }
-            else if (FirstChar(x) == "(")
+            else if (a == "(")
             {
-                if (SecondChar(x) == "]")
+                
+                if (b == "]")
                 {
-                    int t = int.Parse(FirstNumber(x));
+                    int h = int.Parse(FirstNumber(x));
                     int y = int.Parse(SecondNumber(x));
                     for (int i = 0; i < y; i++)
                     {
@@ -74,9 +85,9 @@ namespace KataRange
                         return t.ToString();
                     }
                 }
-                else if (SecondChar(x) == ")")
+                else if (b == ")")
                 {
-                    int t = int.Parse(FirstNumber(x));
+                    int h = int.Parse(FirstNumber(x));
                     int y = int.Parse(SecondNumber(x) + 1);
                     for (int i = 0; i < y; i++)
                     {
@@ -85,6 +96,7 @@ namespace KataRange
                     }
                 }
                 return "";
+                
             }
             else
                 throw new Exception();
