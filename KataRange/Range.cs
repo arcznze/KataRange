@@ -52,7 +52,7 @@ namespace KataRange
             {
                 if (b == "]")
                 {
-                    for (int i = d; i < e; i++)
+                    for (int i = d; i < e + 1; i++)
                     {
                         numbers.Add(i.ToString());
                     }
@@ -61,7 +61,6 @@ namespace KataRange
                 }
                 else if (b == ")")
                 {
-                    e -= 1;
                     for (int i = d; i < e; i++)
                     {
                         numbers.Add(i.ToString());
@@ -74,32 +73,76 @@ namespace KataRange
             }
             else if (a == "(")
             {
-                
                 if (b == "]")
                 {
-                    int h = int.Parse(FirstNumber(x));
-                    int y = int.Parse(SecondNumber(x));
-                    for (int i = 0; i < y; i++)
+                    d += 1;
+                    for (int i = d; i < e + 1; i++)
                     {
-                        t += i;
-                        return t.ToString();
+                        numbers.Add(i.ToString());
                     }
+                    string joined = String.Join(", ", numbers.ToArray());
+                    return joined;
                 }
                 else if (b == ")")
                 {
-                    int h = int.Parse(FirstNumber(x));
-                    int y = int.Parse(SecondNumber(x) + 1);
-                    for (int i = 0; i < y; i++)
+                    d += 1;
+                    for (int i = d; i < e; i++)
                     {
-                        t += i;
-                        return t.ToString();
+                        numbers.Add(i.ToString());
                     }
+                    string joined = String.Join(", ", numbers.ToArray());
+                    return joined;
                 }
-                return "";
-                
+                else
+                    throw new NotImplementedException();
             }
             else
-                throw new Exception();
+                throw new NotImplementedException();
+        }
+
+        public string endPoints(string x)
+        {
+            Range t1 = new Range(x);
+            int t = x.Length - 1;
+            string a = x.Substring(0, 1);
+            string b = x.Substring(t, 1);
+            Char[] delimiters = { '[', '(', ',', ']', ')' };
+            string[] divide = x.Split(delimiters);
+            int d = int.Parse(divide[1]);
+            int e = int.Parse(divide[2]);
+
+            if (a == "[")
+            {
+                if (b == "]")
+                    return "{" + d.ToString() + "," + e.ToString() + "}";
+                else if (b == ")")
+                {
+                    e -= 1;
+                    return "{" + d.ToString() + "," + e.ToString() + "}";
+                }
+                else
+                    throw new NotImplementedException();
+            }
+            else if (a == "(")
+            {
+                d += 1;
+                if (b == "]")
+                    return "{" + d.ToString() + "," + e.ToString() + "}";
+                else if (b == ")")
+                {
+                    e -= 1;
+                    return "{" + d.ToString() + "," + e.ToString() + "}";
+                }
+                else
+                    throw new NotImplementedException();
+            }
+            else
+                throw new NotImplementedException();
+        }
+
+        public string Contains(string x)
+        {
+            Range t1 = new Range(x);
         }
     }
 }
