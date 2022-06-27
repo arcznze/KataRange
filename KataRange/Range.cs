@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace KataRange
@@ -13,28 +14,6 @@ namespace KataRange
         {
             this.test = test;
         }
-
-        string FirstChar(string x)
-        {
-            return x.Substring(1, 1);
-
-        }
-        string SecondChar(string x)
-        {
-            return x.Substring(5, 1);
-
-        }
-        string FirstNumber(string x)
-        {
-            return x.Substring(2, 1);
-
-        }
-        string SecondNumber(string x)
-        {
-            return x.Substring(4, 1);
-
-        }
-
         public string GetAllPoint(string x)
         {
             Range text = new Range(x);
@@ -99,7 +78,6 @@ namespace KataRange
             else
                 throw new NotImplementedException();
         }
-
         public string endPoints(string x)
         {
             Range t1 = new Range(x);
@@ -139,10 +117,25 @@ namespace KataRange
             else
                 throw new NotImplementedException();
         }
+        public bool Contains(string x, string y)
+        {
+            var regex = new Regex(y);
 
-        public string Contains(string x)
+            Range t1 = new Range(x);
+            string t = t1.GetAllPoint(x);
+            bool c = regex.IsMatch(t);
+            return c;
+        }
+        public bool ContainsRange(string x, string y)
         {
             Range t1 = new Range(x);
+            Range t2 = new Range(y);
+
+            var regex = new Regex(t2.GetAllPoint(y));
+
+            string t = t1.GetAllPoint(x);
+            bool c = regex.IsMatch(t);
+            return c;
         }
     }
 }
